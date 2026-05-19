@@ -29,14 +29,14 @@
 
       body {
         font-family: "Alegreya Sans", "Segoe UI", sans-serif;
-        display: flex;
-        justify-content: center;
-        padding: 48px 20px;
         background: var(--bg);
         color: var(--ink);
         margin: 0;
         min-height: 100vh;
+        display: flex;
+        justify-content: center;
         align-items: flex-start;
+        padding: 48px 20px;
         background-image: radial-gradient(
             circle at 15% 20%,
             rgba(29, 78, 216, 0.12),
@@ -55,12 +55,12 @@
       }
 
       .container {
-        width: min(900px, 100%);
+        width: min(760px, 100%);
         height: auto;
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: var(--radius);
-        padding: 28px;
+        padding: 28px 26px;
         box-shadow: var(--shadow);
       }
 
@@ -93,110 +93,68 @@
         text-transform: uppercase;
       }
 
-      .page-title {
-        text-align: center;
-        margin-bottom: 18px;
+      .page-header {
+        margin-bottom: 20px;
       }
 
       .eyebrow {
-        font-weight: 700;
-        font-size: 0.85rem;
-        letter-spacing: 0.4em;
+        font-size: 0.8rem;
         text-transform: uppercase;
+        letter-spacing: 0.3em;
         color: var(--muted);
-      }
-
-      .student-card {
-        background: var(--surface-soft);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 12px 14px;
-        margin-bottom: 18px;
-      }
-
-      .field-row {
-        display: grid;
-        grid-template-columns: 120px 1fr;
-        gap: 10px;
-        align-items: center;
-        margin-bottom: 8px;
-      }
-
-      .field-row label {
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: var(--muted);
-      }
-
-      .field-row input {
-        width: 100%;
-        padding: 8px 10px;
-        font-size: 0.95rem;
-        box-sizing: border-box;
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        background: #fff;
-        font-family: inherit;
-      }
-
-      .title-card {
-        background: #fff8f0;
-        border: 1px solid rgba(180, 83, 9, 0.35);
-        border-radius: 14px;
-        padding: 14px 16px;
-        text-align: center;
-        margin-bottom: 18px;
-      }
-
-      .title-card h2 {
         margin: 0;
-        font-size: 1.2rem;
-        font-family: "Alegreya", serif;
-        letter-spacing: 0.05em;
       }
 
-      .title-card p {
-        margin: 6px 0 0;
-        font-size: 1rem;
+      h1 {
+        font-family: "Alegreya", serif;
+        font-size: 2.1rem;
+        margin: 6px 0;
+      }
+
+      .subtitle {
+        margin: 0;
         color: var(--muted);
-        font-weight: 600;
+        font-size: 1rem;
       }
 
       .info-box {
         background: var(--surface-soft);
         border-left: 4px solid var(--accent-2);
         padding: 14px 16px;
-        margin-bottom: 18px;
+        margin: 18px 0 24px;
+        border-radius: 12px;
         font-size: 0.95rem;
         line-height: 1.6;
-        border-radius: 12px;
       }
 
-      .info-box .note {
-        font-style: italic;
-        color: var(--muted);
+      .code-block {
+        background: #151515;
+        color: #e5e7eb;
+        padding: 12px 14px;
+        margin: 10px 0;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.95rem;
+        border-radius: 10px;
+        white-space: pre;
       }
 
-      .input-block label {
+      label {
         display: block;
         margin-bottom: 6px;
-        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.2em;
-        font-size: 0.75rem;
+        letter-spacing: 0.3px;
+        font-size: 0.8rem;
+        font-weight: 700;
         color: var(--muted);
       }
 
-      .input-block input {
+      input {
         width: 100%;
         padding: 10px 12px;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
         font-size: 1rem;
-        box-sizing: border-box;
-        border: 1px solid var(--border);
         border-radius: 10px;
+        border: 1px solid var(--border);
         background: #fff;
         font-family: inherit;
       }
@@ -204,8 +162,8 @@
       button {
         padding: 10px 12px;
         font-size: 0.95rem;
-        cursor: pointer;
         font-family: inherit;
+        cursor: pointer;
         border-radius: 10px;
         border: 1px solid transparent;
         transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -214,7 +172,6 @@
       .button-row {
         display: flex;
         gap: 10px;
-        margin-bottom: 8px;
       }
 
       .button-row button {
@@ -239,9 +196,9 @@
       }
 
       #output {
-        margin-top: 8px;
+        margin-top: 18px;
         font-family: "JetBrains Mono", monospace;
-        font-size: 0.93rem;
+        font-size: 0.95rem;
         line-height: 1.7;
         white-space: pre-line;
         background: #fff8f0;
@@ -331,31 +288,6 @@
         letter-spacing: 0.1em;
         color: var(--muted);
       }
-
-      .samples-title {
-        margin-top: 18px;
-        margin-bottom: 6px;
-        font-weight: 700;
-      }
-
-      .sample-block {
-        background: #fff;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 10px 12px;
-        margin-bottom: 10px;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.93rem;
-        white-space: pre-line;
-      }
-
-      .footer {
-        margin-top: 22px;
-        font-size: 0.85rem;
-        color: var(--muted);
-        display: flex;
-        justify-content: space-between;
-      }
     </style>
   </head>
   <body>
@@ -365,61 +297,31 @@
         <span class="tag">Sequences</span>
       </div>
 
-      <div class="page-title">
-        <div class="eyebrow">LABORATORY GROUP ACTIVITY</div>
-        <div class="eyebrow">AUTOMATA THEORY AND FORMAL ANGUAGES</div>
-      </div>
-
-      <div class="student-card">
-        <div class="field-row">
-          <label for="name">NAME</label>
-          <input id="name" type="text" placeholder="e.g. Juan Dela Cruz" />
-        </div>
-        <div class="field-row">
-          <label for="score">SCORE</label>
-          <input id="score" type="text" placeholder="e.g. 95" />
-        </div>
-        <div class="field-row">
-          <label for="section">SECTION</label>
-          <input id="section" type="text" placeholder="e.g. BSCS 3A" />
-        </div>
-        <div class="field-row">
-          <label for="group">GROUP #</label>
-          <input id="group" type="text" placeholder="e.g. 4" />
-        </div>
-        <div class="field-row" style="margin-bottom: 0;">
-          <label for="date">DATE SUBMITTED</label>
-          <input id="date" type="text" placeholder="e.g. 05/19/2026" />
-        </div>
-      </div>
-
-      <div class="title-card">
-        <h2>FINALS LAB ACTIVITY #3</h2>
-        <p>Collatz Sequence</p>
-      </div>
+      <header class="page-header">
+        <p class="eyebrow">Sequence Exploration</p>
+        <h1>Collatz Sequence</h1>
+        <p class="subtitle">
+          Generate the 3x + 1 sequence from a positive odd integer.
+        </p>
+      </header>
 
       <div class="info-box">
-        <strong>PROBLEM</strong><br />
-        1. Write a program that find or compute all the terms of the Collatz
-        sequence based on the given rule or recursion.<br />
-        <span class="note"
-          >(Note: The initial value should be any positive odd integer)</span
-        ><br />
-        a. If the previous term is odd, use 3x + 1, where x is the value of the
-        previous term,<br />
-        b. If the previous term is even, divide it by 2.<br />
-        The sequence will terminate if ever it reaches a value of 1.
+        <strong>THE COLLATZ CONJECTURE</strong><br /><br />
+        Starting from any positive odd integer, apply the following rules
+        repeatedly:
+        <pre class="code-block">If odd:  next = 3x + 1
+If even: next = x / 2</pre>
+        The sequence terminates when it reaches 1.<br />
+        <em>Note: The initial value must be a positive odd integer.</em>
       </div>
 
-      <div class="input-block">
-        <label for="start">Input the initial value</label>
-        <input
-          type="number"
-          id="start"
-          placeholder="Positive odd integer (e.g. 13)"
-          step="1"
-        />
-      </div>
+      <label>Initial Value (positive odd integer)</label>
+      <input
+        type="number"
+        id="start"
+        placeholder="e.g. 13"
+        step="1"
+      />
 
       <div class="button-row">
         <button class="compute-btn" onclick="compute()">Compute</button>
@@ -452,38 +354,6 @@
             <tbody id="stepsBody"></tbody>
           </table>
         </div>
-      </div>
-
-      <div class="samples-title">SAMPLE OUTPUTS</div>
-      <div class="sample-block">
-SAMPLE OUTPUT 1:
-This program will find all the terms of the Collatz sequence.
-Input the initial value: 2
-INVALID OUTPUT
-      </div>
-      <div class="sample-block">
-SAMPLE OUTPUT 2:
-This program will find all the terms of the Collatz sequence.
-Input the initial value: 0
-INVALID OUTPUT
-      </div>
-      <div class="sample-block">
-SAMPLE OUTPUT 3:
-This program will find all the terms of the Collatz sequence.
-Input the initial value: 13
-The Collatz sequence are: 13, 40, 20, 10, 5, 16, 8, 4, 2, 1
-      </div>
-      <div class="sample-block">
-SAMPLE OUTPUT 5:
-This program will find all the terms of the Collatz sequence.
-Input the initial value: 19
-The Collatz sequence are: 19, 58, 29, 88, 44, 22, 11, 34, 17, 52, 26, 13, 40,
-20, 10, 5, 16, 8, 4, 2, 1
-      </div>
-
-      <div class="footer">
-        <span>Prof. Lester G. Diampoc, MSME</span>
-        <span>1</span>
       </div>
     </div>
 
