@@ -207,6 +207,87 @@
         padding: 12px 14px;
         display: none;
       }
+
+      .explain-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--muted);
+      }
+
+      .explain-toggle input {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--accent);
+      }
+
+      .explain-box {
+        display: none;
+        margin-top: 12px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 0.95rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .explain-box.visible {
+        display: block;
+      }
+
+      .steps-card {
+        display: none;
+        margin-top: 16px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+
+      .steps-card.visible {
+        display: block;
+      }
+
+      .steps-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 700;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+
+      .steps-scroll {
+        overflow-x: auto;
+      }
+
+      .steps-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.88rem;
+      }
+
+      .steps-table th,
+      .steps-table td {
+        text-align: left;
+        padding: 6px 8px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .steps-table th {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+      }
     </style>
   </head>
   <body>
@@ -250,21 +331,62 @@ r₁ = r₂q₃ + r₃
         <button class="clear-btn" onclick="clearForm()">Clear</button>
       </div>
 
+      <label class="explain-toggle">
+        <input id="explainToggle" type="checkbox" />
+        Explain mode
+      </label>
+      <div class="explain-box" id="explainBox">
+        The Euclidean Algorithm repeats division: m = nq + r. Replace (m, n)
+        with (n, r) until r becomes 0. The last non-zero remainder is the GCD.
+        Then LCM = (a x b) / GCD.
+      </div>
+
       <div id="output"></div>
+
+      <div class="steps-card" id="stepsCard">
+        <div class="steps-title">Step-by-step</div>
+        <div class="steps-scroll">
+          <table class="steps-table">
+            <thead>
+              <tr>
+                <th>m</th>
+                <th>n</th>
+                <th>q</th>
+                <th>r</th>
+                <th>Equation</th>
+              </tr>
+            </thead>
+            <tbody id="stepsBody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <script>
+      const explainToggle = document.getElementById("explainToggle");
+      const explainBox = document.getElementById("explainBox");
+      const stepsCard = document.getElementById("stepsCard");
+      const stepsBody = document.getElementById("stepsBody");
+
+      explainToggle.addEventListener("change", () => {
+        explainBox.classList.toggle("visible", explainToggle.checked);
+      });
+
       function clearForm() {
         document.getElementById("inputA").value = "";
         document.getElementById("inputB").value = "";
         const output = document.getElementById("output");
         output.style.display = "none";
         output.textContent = "";
+        stepsBody.innerHTML = "";
+        stepsCard.classList.remove("visible");
       }
         function compute() {
       let a = parseInt(document.getElementById('inputA').value);
       let b = parseInt(document.getElementById('inputB').value);
       const out = document.getElementById('output');
+      stepsBody.innerHTML = "";
+      stepsCard.classList.remove("visible");
  
       if (isNaN(a) || isNaN(b)) {
         out.style.display = 'block';
@@ -283,11 +405,19 @@ r₁ = r₂q₃ + r₃
       let n = a > b ? b : a;
  
       let steps = 'SOLUTION:\n';
+      const rows = [];
       let tempM = m, tempN = n;
  
       while (tempN !== 0) {
         const q = Math.floor(tempM / tempN);
         const r = tempM % tempN;
+        rows.push({
+          m: tempM,
+          n: tempN,
+          q,
+          r,
+          equation: r !== 0 ? `${tempM} = ${tempN} (${q}) + ${r}` : `${tempM} = ${tempN} (${q})`,
+        });
         if (r !== 0) {
           steps += `${tempM} = ${tempN} (${q}) + ${r}\n`;
         } else {
@@ -306,6 +436,20 @@ r₁ = r₂q₃ + r₃
  
       out.style.display = 'block';
       out.textContent = steps;
+
+      stepsBody.innerHTML = rows
+        .map(
+          (row) => `
+          <tr>
+            <td>${row.m}</td>
+            <td>${row.n}</td>
+            <td>${row.q}</td>
+            <td>${row.r}</td>
+            <td>${row.equation}</td>
+          </tr>`
+        )
+        .join("");
+      stepsCard.classList.add("visible");
     }
  
     document.addEventListener('keydown', e => { if (e.key === 'Enter') compute(); });

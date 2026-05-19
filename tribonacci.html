@@ -281,6 +281,87 @@
         display: none;
       }
 
+      .explain-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--muted);
+      }
+
+      .explain-toggle input {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--accent);
+      }
+
+      .explain-box {
+        display: none;
+        margin-top: 12px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 0.95rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .explain-box.visible {
+        display: block;
+      }
+
+      .steps-card {
+        display: none;
+        margin-top: 16px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+
+      .steps-card.visible {
+        display: block;
+      }
+
+      .steps-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 700;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+
+      .steps-scroll {
+        overflow-x: auto;
+      }
+
+      .steps-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.88rem;
+      }
+
+      .steps-table th,
+      .steps-table td {
+        text-align: left;
+        padding: 6px 8px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .steps-table th {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+      }
+
       .samples-title {
         margin-top: 18px;
         margin-bottom: 6px;
@@ -382,8 +463,32 @@ Each term is the sum of the previous three terms.</pre>
         <button class="clear-btn" onclick="clearForm()">Clear</button>
       </div>
 
+      <label class="explain-toggle">
+        <input id="explainToggle" type="checkbox" />
+        Explain mode
+      </label>
+      <div class="explain-box" id="explainBox">
+        Tribonacci starts with 0, 0, 1. Each next term is the sum of the
+        previous three terms: T(n) = T(n - 1) + T(n - 2) + T(n - 3).
+      </div>
+
       <div id="output"></div>
 
+      <div class="steps-card" id="stepsCard">
+        <div class="steps-title">Step-by-step</div>
+        <div class="steps-scroll">
+          <table class="steps-table">
+            <thead>
+              <tr>
+                <th>Step</th>
+                <th>Formula</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody id="stepsBody"></tbody>
+          </table>
+        </div>
+      </div>
       <div class="samples-title">SAMPLE OUTPUTS</div>
       <div class="sample-block">
 SAMPLE OUTPUT 3:
@@ -399,11 +504,22 @@ The Tribonacci numbers are: 0, 0, 1, 1, 2, 4, 7, 13, 24, 44
     </div>
 
     <script>
+      const explainToggle = document.getElementById("explainToggle");
+      const explainBox = document.getElementById("explainBox");
+      const stepsCard = document.getElementById("stepsCard");
+      const stepsBody = document.getElementById("stepsBody");
+
+      explainToggle.addEventListener("change", () => {
+        explainBox.classList.toggle("visible", explainToggle.checked);
+      });
+
       function clearForm() {
         document.getElementById("terms").value = "";
         const output = document.getElementById("output");
         output.style.display = "none";
         output.textContent = "";
+        stepsBody.innerHTML = "";
+        stepsCard.classList.remove("visible");
       }
 
       function compute() {
@@ -422,14 +538,38 @@ The Tribonacci numbers are: 0, 0, 1, 1, 2, 4, 7, 13, 24, 44
         }
 
         const sequence = [0, 0, 1];
+        const rows = [
+          { step: 0, formula: "T(0) = 0", value: 0 },
+          { step: 1, formula: "T(1) = 0", value: 0 },
+          { step: 2, formula: "T(2) = 1", value: 1 },
+        ];
         for (let i = 3; i < value; i += 1) {
-          sequence.push(sequence[i - 1] + sequence[i - 2] + sequence[i - 3]);
+          const next = sequence[i - 1] + sequence[i - 2] + sequence[i - 3];
+          sequence.push(next);
+          rows.push({
+            step: i,
+            formula: `T(${i}) = T(${i - 1}) + T(${i - 2}) + T(${i - 3}) = ${sequence[i - 1]} + ${sequence[i - 2]} + ${sequence[i - 3]}`,
+            value: next,
+          });
         }
 
         output.style.display = "block";
         output.textContent = `${intro}\n${inputLine}\nThe Tribonacci numbers are: ${sequence.join(
           ", "
         )}`;
+
+        stepsBody.innerHTML = rows
+          .slice(0, value)
+          .map(
+            (row) => `
+            <tr>
+              <td>${row.step}</td>
+              <td>${row.formula}</td>
+              <td>${row.value}</td>
+            </tr>`
+          )
+          .join("");
+        stepsCard.classList.add("visible");
       }
 
       document.addEventListener("keydown", (e) => {
