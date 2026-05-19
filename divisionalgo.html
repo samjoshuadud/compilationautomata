@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Division Algorithm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,600;0,700;1,500&family=Alegreya+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f6f1e9;
+        --surface: #fffdf8;
+        --surface-soft: #f7efe6;
+        --ink: #1f2937;
+        --muted: #5a6576;
+        --accent: #1d4ed8;
+        --accent-2: #b45309;
+        --border: #e4d8c6;
+        --shadow: 0 24px 50px rgba(31, 41, 55, 0.12);
+        --radius: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Alegreya Sans", "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 48px 20px;
+        background-image: radial-gradient(
+            circle at 15% 20%,
+            rgba(29, 78, 216, 0.12),
+            transparent 45%
+          ),
+          radial-gradient(
+            circle at 80% 0%,
+            rgba(180, 83, 9, 0.12),
+            transparent 40%
+          ),
+          repeating-linear-gradient(
+            135deg,
+            rgba(31, 41, 55, 0.04) 0 2px,
+            transparent 2px 10px
+          );
+      }
+
+      .container {
+        width: min(760px, 100%);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 28px 26px;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.95rem;
+        margin-bottom: 16px;
+      }
+
+      .back-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      .tag {
+        background: rgba(29, 78, 216, 0.12);
+        color: #153a74;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+      }
+
+      .page-header {
+        margin-bottom: 20px;
+      }
+
+      .eyebrow {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: var(--muted);
+        margin: 0;
+      }
+
+      h1 {
+        font-family: "Alegreya", serif;
+        font-size: 2.1rem;
+        margin: 6px 0;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .info-box {
+        background: var(--surface-soft);
+        border-left: 4px solid var(--accent-2);
+        padding: 14px 16px;
+        margin: 18px 0 24px;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .code-block {
+        background: #151515;
+        color: #e5e7eb;
+        padding: 12px 14px;
+        margin: 10px 0;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.95rem;
+        border-radius: 10px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--muted);
+      }
+
+      input {
+        width: 100%;
+        padding: 10px 12px;
+        margin-bottom: 14px;
+        font-size: 1rem;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: #fff;
+        font-family: inherit;
+      }
+
+      button {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        font-family: inherit;
+        cursor: pointer;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .button-row {
+        display: flex;
+        gap: 10px;
+      }
+
+      .button-row button {
+        flex: 1;
+      }
+
+      .compute-btn {
+        background: var(--accent);
+        color: #fff;
+        border-color: #1e40af;
+        box-shadow: 0 12px 24px rgba(29, 78, 216, 0.2);
+      }
+
+      .compute-btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .clear-btn {
+        background: #fff;
+        color: var(--ink);
+        border: 1px solid var(--border);
+      }
+
+      #output {
+        margin-top: 18px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        background: #fff8f0;
+        border: 1px solid #f2d2a9;
+        border-radius: 12px;
+        padding: 12px 14px;
+        display: none;
+        white-space: pre-line;
+      }
+    </style>
+  </head>
+  <body>
+   <div class="container">
+     <div class="nav-row">
+       <a class="back-link" href="index.html"><- Back to menu</a>
+       <span class="tag">Number Theory</span>
+     </div>
+
+     <header class="page-header">
+       <p class="eyebrow">Algorithm Essentials</p>
+       <h1>Division Algorithm</h1>
+       <p class="subtitle">
+         Compute quotient and remainder for positive integers.
+       </p>
+     </header>
+
+     <div class="info-box">
+       <strong>THE DIVISION ALGORITHM</strong><br /><br />
+       Let <em>m</em> and <em>n</em> be positive integers. There are
+       non-negative integers <em>q</em> and <em>r</em>, where 0 &lt; r &lt; n,
+       such that:
+       <pre class="code-block">m = nq + r</pre>
+       The integer <em>q</em> is the quotient obtained when <em>m</em> is
+       divided by <em>n</em>, while <em>r</em> is the remainder.
+     </div>
+
+      <label>First Integer</label>
+      <input type="number" id="first" placeholder="e.g. 17" step="1" />
+
+      <label>Second Integer</label>
+      <input type="number" id="second" placeholder="e.g. 5" step="1" />
+
+      <div class="button-row">
+        <button class="compute-btn" onclick="compute()">Compute</button>
+        <button class="clear-btn" onclick="clearForm()">Clear</button>
+      </div>
+
+      <div id="output"></div>
+    </div>
+
+    <script>
+      function clearForm() {
+        document.getElementById("first").value = "";
+        document.getElementById("second").value = "";
+        const output = document.getElementById("output");
+        output.style.display = "none";
+        output.textContent = "";
+      }
+      function compute() {
+        const first = Number(document.getElementById("first").value);
+        const second = Number(document.getElementById("second").value);
+        const out = document.getElementById("output");
+
+        let dividend;
+        let divisor;
+
+        if (isNaN(first) || isNaN(second)) {
+          out.style.display = "block";
+          out.textContent = "Please enter both values.";
+          return;
+        }
+
+        if (first >= second) {
+          dividend = first;
+          divisor = second;
+        } else {
+          dividend = second;
+          divisor = first;
+        }
+
+
+        if (divisor === 0) {
+          out.style.display = "block";
+          out.textContent = "Error: Divisor cannot be zero.";
+          return;
+        }
+
+        if (!Number.isInteger(dividend) || !Number.isInteger(divisor)) {
+          out.style.display = "block";
+          out.textContent = "Please enter whole numbers only (no decimals).";
+          return;
+        }
+
+        if (dividend <= 0 || divisor <= 0) {
+          out.style.display = "block";
+          out.textContent = "Please enter positive integers only.";
+          return;
+        }
+
+        const q = Math.floor(dividend / divisor);
+        const r = dividend % divisor;
+
+        if (r < 0 || r >= divisor) {
+          out.style.display = "block";
+          out.textContent = "Inputs must satisfy 0 ≤ r < n.";
+          return;
+        }
+
+        out.style.display = "block";
+        out.innerHTML = `
+        SOLUTION:<br>
+        ${dividend} = ${divisor} (${q}) + ${r}<br>
+        The dividend is: ${dividend}<br>
+        The divisor is: ${divisor}<br>
+        The quotient is: ${q} and the remainder is: ${r}
+      `;
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") compute();
+      });
+    </script>
+  </body>
+</html>

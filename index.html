@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Automata Operations Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,600;0,700;1,500&family=Alegreya+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f6f1e9;
+        --surface: #fffdf8;
+        --surface-soft: #f7efe6;
+        --ink: #1f2937;
+        --muted: #5a6576;
+        --accent: #1d4ed8;
+        --accent-2: #b45309;
+        --border: #e4d8c6;
+        --shadow: 0 24px 50px rgba(31, 41, 55, 0.12);
+        --radius: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Alegreya Sans", "Segoe UI", sans-serif;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 48px 20px;
+        background: var(--bg);
+        color: var(--ink);
+        background-image: radial-gradient(
+            circle at 15% 20%,
+            rgba(29, 78, 216, 0.12),
+            transparent 45%
+          ),
+          radial-gradient(
+            circle at 80% 0%,
+            rgba(180, 83, 9, 0.12),
+            transparent 40%
+          ),
+          repeating-linear-gradient(
+            135deg,
+            rgba(31, 41, 55, 0.04) 0 2px,
+            transparent 2px 10px
+          );
+      }
+
+      .container {
+        width: min(1100px, 100%);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 32px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px;
+        align-items: center;
+        margin-bottom: 26px;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.35em;
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin: 0 0 10px;
+        font-weight: 700;
+      }
+
+      h1 {
+        font-family: "Alegreya", serif;
+        font-size: 2.6rem;
+        margin: 0 0 12px;
+      }
+
+      .lead {
+        margin: 0;
+        font-size: 1.05rem;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .hero-card {
+        background: var(--surface-soft);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 18px;
+      }
+
+      .hero-card h2 {
+        font-family: "Alegreya", serif;
+        font-size: 1.2rem;
+        margin: 0 0 10px;
+      }
+
+      .hero-card ul {
+        padding-left: 18px;
+        margin: 0 0 12px;
+        color: var(--muted);
+      }
+
+      .hero-card li {
+        margin-bottom: 6px;
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .menu-card {
+        position: relative;
+        padding: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        overflow: hidden;
+      }
+
+      .menu-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--card-accent, var(--accent));
+      }
+
+      .menu-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 30px rgba(31, 41, 55, 0.16);
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .card-tag {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .card-icon {
+        font-family: "Alegreya", serif;
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(29, 78, 216, 0.12);
+        color: #153a74;
+      }
+
+      .menu-card h3 {
+        font-family: "Alegreya", serif;
+        margin: 0 0 8px;
+        font-size: 1.2rem;
+      }
+
+      .menu-card p {
+        margin: 0 0 12px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .card-meta {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .home-footer {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Automata Theory Toolbox</p>
+          <h1>Operations Menu</h1>
+          <p class="lead">
+            Choose an operation to explore. Each module is interactive and
+            designed for step-by-step computation.
+          </p>
+        </div>
+        <div class="hero-card">
+          <h2>Quick Notes</h2>
+          <ul>
+            <li>Most modules expect whole, positive integers.</li>
+            <li>Press Enter to compute once you enter values.</li>
+          </ul>
+          <div class="legend">
+            <span><span class="dot" style="background:#1d4ed8;"></span>Number
+              Theory</span>
+            <span><span class="dot" style="background:#0f766e;"></span>Sequences</span>
+            <span><span class="dot" style="background:#b45309;"></span>Recursion</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="menu-grid">
+        <a
+          class="menu-card"
+          href="divisionalgo.html"
+          style="--card-accent: #1d4ed8;"
+        >
+          <div class="card-top">
+            <span class="card-tag">Number Theory</span>
+            <span class="card-icon">/</span>
+          </div>
+          <h3>Division Algorithm</h3>
+          <p>Compute quotient and remainder with the classic constraint rule.</p>
+          <span class="card-meta">2 integers</span>
+        </a>
+
+        <a
+          class="menu-card"
+          href="euclidean.html"
+          style="--card-accent: #2563eb;"
+        >
+          <div class="card-top">
+            <span class="card-tag">Number Theory</span>
+            <span class="card-icon">gcd</span>
+          </div>
+          <h3>Euclidean Algorithm</h3>
+          <p>Find the greatest common divisor through iterative division.</p>
+          <span class="card-meta">GCD & LCM</span>
+        </a>
+
+        <a
+          class="menu-card"
+          href="collatz.html"
+          style="--card-accent: #0f766e;"
+        >
+          <div class="card-top">
+            <span class="card-tag">Sequences</span>
+            <span class="card-icon">3x+1</span>
+          </div>
+          <h3>Collatz Sequence</h3>
+          <p>Generate the classic 3x + 1 sequence from an odd start value.</p>
+          <span class="card-meta">Odd integer</span>
+        </a>
+
+        <a
+          class="menu-card"
+          href="fibonacci.html"
+          style="--card-accent: #b45309;"
+        >
+          <div class="card-top">
+            <span class="card-tag">Recursion</span>
+            <span class="card-icon">Phi</span>
+          </div>
+          <h3>Fibonacci Numbers</h3>
+          <p>Compute the Fibonacci sequence terms from recursive definitions.</p>
+          <span class="card-meta">n &gt; 2</span>
+        </a>
+
+        <a
+          class="menu-card"
+          href="lucas.html"
+          style="--card-accent: #7c3aed;"
+        >
+          <div class="card-top">
+            <span class="card-tag">Recursion</span>
+            <span class="card-icon">L</span>
+          </div>
+          <h3>Lucas Numbers</h3>
+          <p>Explore Lucas numbers as a sibling sequence to Fibonacci.</p>
+          <span class="card-meta">n &gt; 2</span>
+        </a>
+
+        <a
+          class="menu-card"
+          href="tribonacci.html"
+          style="--card-accent: #c2410c;"
+        >
+          <div class="card-top">
+            <span class="card-tag">Recursion</span>
+            <span class="card-icon">T3</span>
+          </div>
+          <h3>Tribonacci Numbers</h3>
+          <p>Calculate Tribonacci terms using three-term recursion.</p>
+          <span class="card-meta">n &gt; 3</span>
+        </a>
+      </section>
+
+      <div class="home-footer">
+        <span>Automata Theory and Formal Languages</span>
+        <span>Interactive lab menu - 2026</span>
+      </div>
+    </div>
+  </body>
+</html>

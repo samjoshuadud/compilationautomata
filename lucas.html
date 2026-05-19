@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lucas Numbers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,600;0,700;1,500&family=Alegreya+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f6f1e9;
+        --surface: #fffdf8;
+        --surface-soft: #f7efe6;
+        --ink: #1f2937;
+        --muted: #5a6576;
+        --accent: #1d4ed8;
+        --accent-2: #b45309;
+        --border: #e4d8c6;
+        --shadow: 0 24px 50px rgba(31, 41, 55, 0.12);
+        --radius: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Alegreya Sans", "Segoe UI", sans-serif;
+        display: flex;
+        justify-content: center;
+        padding: 48px 20px;
+        background: var(--bg);
+        color: var(--ink);
+        margin: 0;
+        min-height: 100vh;
+        background-image: radial-gradient(
+            circle at 15% 20%,
+            rgba(29, 78, 216, 0.12),
+            transparent 45%
+          ),
+          radial-gradient(
+            circle at 80% 0%,
+            rgba(180, 83, 9, 0.12),
+            transparent 40%
+          ),
+          repeating-linear-gradient(
+            135deg,
+            rgba(31, 41, 55, 0.04) 0 2px,
+            transparent 2px 10px
+          );
+      }
+
+      .container {
+        width: min(900px, 100%);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 28px;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.95rem;
+        margin-bottom: 16px;
+      }
+
+      .back-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      .tag {
+        background: rgba(29, 78, 216, 0.12);
+        color: #153a74;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+      }
+
+      .page-title {
+        text-align: center;
+        margin-bottom: 18px;
+      }
+
+      .eyebrow {
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .student-card {
+        background: var(--surface-soft);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 12px 14px;
+        margin-bottom: 18px;
+      }
+
+      .field-row {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .field-row label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+      }
+
+      .field-row input {
+        width: 100%;
+        padding: 8px 10px;
+        font-size: 0.95rem;
+        box-sizing: border-box;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: #fff;
+        font-family: inherit;
+      }
+
+      .title-card {
+        background: #fff8f0;
+        border: 1px solid rgba(180, 83, 9, 0.35);
+        border-radius: 14px;
+        padding: 14px 16px;
+        text-align: center;
+        margin-bottom: 18px;
+      }
+
+      .title-card h2 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-family: "Alegreya", serif;
+        letter-spacing: 0.05em;
+      }
+
+      .title-card p {
+        margin: 6px 0 0;
+        font-size: 1rem;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .info-box {
+        background: var(--surface-soft);
+        border-left: 4px solid var(--accent-2);
+        padding: 14px 16px;
+        margin-bottom: 18px;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        border-radius: 12px;
+      }
+
+      .info-box .note {
+        font-style: italic;
+        color: var(--muted);
+      }
+
+      .formula-card {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 12px;
+        margin-bottom: 14px;
+        box-shadow: 0 8px 18px rgba(31, 41, 55, 0.08);
+      }
+
+      .formula-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .formula-block {
+        margin: 0;
+        background: #151515;
+        color: #f3f4f6;
+        border-radius: 10px;
+        padding: 12px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        white-space: pre-line;
+      }
+
+      .input-block label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      .input-block input {
+        width: 100%;
+        padding: 10px 12px;
+        margin-bottom: 12px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: #fff;
+        font-family: inherit;
+      }
+
+      button {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        cursor: pointer;
+        font-family: inherit;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .button-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+
+      .button-row button {
+        flex: 1;
+      }
+
+      .compute-btn {
+        background: var(--accent);
+        color: #fff;
+        border-color: #1e40af;
+        box-shadow: 0 12px 24px rgba(29, 78, 216, 0.2);
+      }
+
+      .compute-btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .clear-btn {
+        background: #fff;
+        color: var(--ink);
+        border: 1px solid var(--border);
+      }
+
+      #output {
+        margin-top: 8px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.93rem;
+        line-height: 1.7;
+        white-space: pre-line;
+        background: #fff8f0;
+        border: 1px solid #f2d2a9;
+        border-radius: 12px;
+        padding: 12px 14px;
+        display: none;
+      }
+
+      .samples-title {
+        margin-top: 18px;
+        margin-bottom: 6px;
+        font-weight: 700;
+      }
+
+      .sample-block {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px 12px;
+        margin-bottom: 10px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.93rem;
+        white-space: pre-line;
+      }
+
+      .footer {
+        margin-top: 22px;
+        font-size: 0.85rem;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-row">
+        <a class="back-link" href="index.html"><- Back to menu</a>
+        <span class="tag">Recursion</span>
+      </div>
+
+      <div class="page-title">
+        <div class="eyebrow">LABORATORY GROUP ACTIVITY</div>
+        <div class="eyebrow">AUTOMATA THEORY AND FORMAL ANGUAGES</div>
+      </div>
+
+      <div class="student-card">
+        <div class="field-row">
+          <label for="name">NAME</label>
+          <input id="name" type="text" placeholder="e.g. Juan Dela Cruz" />
+        </div>
+        <div class="field-row">
+          <label for="score">SCORE</label>
+          <input id="score" type="text" placeholder="e.g. 95" />
+        </div>
+        <div class="field-row">
+          <label for="section">SECTION</label>
+          <input id="section" type="text" placeholder="e.g. BSCS 3A" />
+        </div>
+        <div class="field-row">
+          <label for="group">GROUP #</label>
+          <input id="group" type="text" placeholder="e.g. 4" />
+        </div>
+        <div class="field-row" style="margin-bottom: 0;">
+          <label for="date">DATE SUBMITTED</label>
+          <input id="date" type="text" placeholder="e.g. 05/19/2026" />
+        </div>
+      </div>
+
+      <div class="title-card">
+        <h2>FINALS LAB ACTIVITY #4</h2>
+        <p>Recursion</p>
+      </div>
+
+      <div class="info-box">
+        <strong>PROBLEM</strong><br />
+        1. Compute all the terms of the Lucas numbers. This page is the Lucas
+        option (separate HTML instead of a menu).<br />
+        <span class="note">Valid input is greater than 2.</span>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-title">Recursive definition</div>
+        <pre class="formula-block">L(0) = 2
+L(1) = 1
+L(n) = L(n - 1) + L(n - 2), for n >= 2</pre>
+      </div>
+      <div class="formula-card">
+        <div class="formula-title">Sequence rule</div>
+        <pre class="formula-block">2, 1, 3, 4, 7, 11, 18, 29, ...
+Each term is the sum of the two previous terms.</pre>
+      </div>
+
+      <div class="input-block">
+        <label for="terms">Input the number of terms</label>
+        <input
+          type="number"
+          id="terms"
+          placeholder="Greater than 2 (e.g. 5)"
+          step="1"
+        />
+      </div>
+
+      <div class="button-row">
+        <button class="compute-btn" onclick="compute()">Compute</button>
+        <button class="clear-btn" onclick="clearForm()">Clear</button>
+      </div>
+
+      <div id="output"></div>
+
+      <div class="samples-title">SAMPLE OUTPUTS</div>
+      <div class="sample-block">
+SAMPLE OUTPUT 2:
+This program will find all the terms of the Lucas numbers.
+Input the number of terms: 5
+The Lucas numbers are: 2, 1, 3, 4, 7
+      </div>
+
+      <div class="footer">
+        <span>Prof. Lester G. Diampoc, MSME</span>
+        <span>1</span>
+      </div>
+    </div>
+
+    <script>
+      function clearForm() {
+        document.getElementById("terms").value = "";
+        const output = document.getElementById("output");
+        output.style.display = "none";
+        output.textContent = "";
+      }
+
+      function compute() {
+        const raw = document.getElementById("terms").value.trim();
+        const value = Number(raw);
+        const output = document.getElementById("output");
+
+        const intro = "This program will find all the terms of the Lucas numbers.";
+        const inputLine = `Input the number of terms: ${raw || ""}`;
+
+        if (!Number.isInteger(value) || value <= 2 || raw === "") {
+          output.style.display = "block";
+          output.textContent = `${intro}\n${inputLine}\nINVALID OUTPUT`;
+          return;
+        }
+
+        const sequence = [2, 1];
+        for (let i = 2; i < value; i += 1) {
+          sequence.push(sequence[i - 1] + sequence[i - 2]);
+        }
+
+        output.style.display = "block";
+        output.textContent = `${intro}\n${inputLine}\nThe Lucas numbers are: ${sequence.join(
+          ", "
+        )}`;
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") compute();
+      });
+    </script>
+  </body>
+</html>
