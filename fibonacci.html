@@ -55,12 +55,12 @@
       }
 
       .container {
-        width: min(900px, 100%);
+        width: min(760px, 100%);
         height: auto;
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: var(--radius);
-        padding: 28px;
+        padding: 28px 26px;
         box-shadow: var(--shadow);
       }
 
@@ -93,85 +93,38 @@
         text-transform: uppercase;
       }
 
-      .page-title {
-        text-align: center;
-        margin-bottom: 18px;
+      .page-header {
+        margin-bottom: 20px;
       }
 
       .eyebrow {
-        font-weight: 700;
-        font-size: 0.85rem;
-        letter-spacing: 0.4em;
+        font-size: 0.8rem;
         text-transform: uppercase;
+        letter-spacing: 0.3em;
         color: var(--muted);
-      }
-
-      .student-card {
-        background: var(--surface-soft);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 12px 14px;
-        margin-bottom: 18px;
-      }
-
-      .field-row {
-        display: grid;
-        grid-template-columns: 120px 1fr;
-        gap: 10px;
-        align-items: center;
-        margin-bottom: 8px;
-      }
-
-      .field-row label {
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: var(--muted);
-      }
-
-      .field-row input {
-        width: 100%;
-        padding: 8px 10px;
-        font-size: 0.95rem;
-        box-sizing: border-box;
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        background: #fff;
-        font-family: inherit;
-      }
-
-      .title-card {
-        background: #fff8f0;
-        border: 1px solid rgba(180, 83, 9, 0.35);
-        border-radius: 14px;
-        padding: 14px 16px;
-        text-align: center;
-        margin-bottom: 18px;
-      }
-
-      .title-card h2 {
         margin: 0;
-        font-size: 1.2rem;
-        font-family: "Alegreya", serif;
-        letter-spacing: 0.05em;
       }
 
-      .title-card p {
-        margin: 6px 0 0;
-        font-size: 1rem;
+      h1 {
+        font-family: "Alegreya", serif;
+        font-size: 2.1rem;
+        margin: 6px 0;
+      }
+
+      .subtitle {
+        margin: 0;
         color: var(--muted);
-        font-weight: 600;
+        font-size: 1rem;
       }
 
       .info-box {
         background: var(--surface-soft);
         border-left: 4px solid var(--accent-2);
         padding: 14px 16px;
-        margin-bottom: 18px;
+        margin: 18px 0 24px;
+        border-radius: 12px;
         font-size: 0.95rem;
         line-height: 1.6;
-        border-radius: 12px;
       }
 
       .info-box .note {
@@ -209,24 +162,23 @@
         white-space: pre-line;
       }
 
-      .input-block label {
+      label {
         display: block;
         margin-bottom: 6px;
-        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.2em;
-        font-size: 0.75rem;
+        letter-spacing: 0.3px;
+        font-size: 0.8rem;
+        font-weight: 700;
         color: var(--muted);
       }
 
-      .input-block input {
+      input {
         width: 100%;
         padding: 10px 12px;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
         font-size: 1rem;
-        box-sizing: border-box;
-        border: 1px solid var(--border);
         border-radius: 10px;
+        border: 1px solid var(--border);
         background: #fff;
         font-family: inherit;
       }
@@ -395,45 +347,20 @@
         <span class="tag">Recursion</span>
       </div>
 
-      <div class="page-title">
-        <div class="eyebrow">LABORATORY GROUP ACTIVITY</div>
-        <div class="eyebrow">AUTOMATA THEORY AND FORMAL ANGUAGES</div>
-      </div>
+     <header class="page-header">
+       <p class="eyebrow">Algorithm Essentials</p>
+       <h1>Fibonacci Numbers</h1>
+       <p class="subtitle">
+         Generate the Fibonacci sequence using recursive addition.
+       </p>
+     </header>
 
-      <div class="student-card">
-        <div class="field-row">
-          <label for="name">NAME</label>
-          <input id="name" type="text" placeholder="e.g. Juan Dela Cruz" />
-        </div>
-        <div class="field-row">
-          <label for="score">SCORE</label>
-          <input id="score" type="text" placeholder="e.g. 95" />
-        </div>
-        <div class="field-row">
-          <label for="section">SECTION</label>
-          <input id="section" type="text" placeholder="e.g. BSCS 3A" />
-        </div>
-        <div class="field-row">
-          <label for="group">GROUP #</label>
-          <input id="group" type="text" placeholder="e.g. 4" />
-        </div>
-        <div class="field-row" style="margin-bottom: 0;">
-          <label for="date">DATE SUBMITTED</label>
-          <input id="date" type="text" placeholder="e.g. 05/19/2026" />
-        </div>
-      </div>
-
-      <div class="title-card">
-        <h2>FINALS LAB ACTIVITY #4</h2>
-        <p>Recursion</p>
-      </div>
-
-      <div class="info-box">
-        <strong>PROBLEM</strong><br />
-        1. Compute all the terms of the Fibonacci numbers. This page is the
-        Fibonacci option (separate HTML instead of a menu).<br />
-        <span class="note">Valid input is greater than 2.</span>
-      </div>
+     <div class="info-box">
+       <strong>PROBLEM</strong><br />
+       1. Compute all the terms of the Fibonacci numbers. This page is the
+       Fibonacci option (separate HTML instead of a menu).<br />
+       <span class="note">Valid input is greater than 2.</span>
+     </div>
 
       <div class="formula-card">
         <div class="formula-title">Recursive definition</div>
@@ -447,15 +374,13 @@ F(n) = F(n - 1) + F(n - 2), for n >= 2</pre>
 Each term is the sum of the previous two terms.</pre>
       </div>
 
-      <div class="input-block">
-        <label for="terms">Input the number of terms</label>
-        <input
-          type="number"
-          id="terms"
-          placeholder="Greater than 2 (e.g. 5)"
-          step="1"
-        />
-      </div>
+      <label for="terms">Input the number of terms</label>
+      <input
+        type="number"
+        id="terms"
+        placeholder="Greater than 2 (e.g. 5)"
+        step="1"
+      />
 
       <div class="button-row">
         <button class="compute-btn" onclick="compute()">Compute</button>
@@ -497,10 +422,6 @@ Input the number of terms: 5
 The Fibonacci numbers are: 0, 1, 1, 2, 3
       </div>
 
-      <div class="footer">
-        <span>Prof. Lester G. Diampoc, MSME</span>
-        <span>1</span>
-      </div>
     </div>
 
     <script>
