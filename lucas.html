@@ -347,9 +347,9 @@
 
       <div class="formula-card">
         <div class="formula-title">Recursive definition</div>
-        <pre class="formula-block">L(0) = 2
-L(1) = 1
-L(n) = L(n - 1) + L(n - 2), for n >= 2</pre>
+        <pre class="formula-block">L<sub>0</sub> = 2
+L<sub>1</sub> = 1
+L<sub>n</sub> = L<sub>n−1</sub> + L<sub>n−2</sub>, for n ≥ 2</pre>
       </div>
       <div class="formula-card">
         <div class="formula-title">Sequence rule</div>
@@ -435,15 +435,15 @@ Each term is the sum of the two previous terms.</pre>
 
         const sequence = [2, 1];
         const rows = [
-          { step: 0, formula: "L(0) = 2", value: 2 },
-          { step: 1, formula: "L(1) = 1", value: 1 },
+          { step: 0, formula: "L<sub>0</sub> = 2", value: 2 },
+          { step: 1, formula: "L<sub>1</sub> = 1", value: 1 },
         ];
         for (let i = 2; i < value; i += 1) {
           const next = sequence[i - 1] + sequence[i - 2];
           sequence.push(next);
           rows.push({
             step: i,
-            formula: `L(${i}) = L(${i - 1}) + L(${i - 2}) = ${sequence[i - 1]} + ${sequence[i - 2]}`,
+            formula: `L<sub>${i}</sub> = L<sub>${i - 1}</sub> + L<sub>${i - 2}</sub> = ${sequence[i - 1]} + ${sequence[i - 2]}`,
             value: next,
           });
         }

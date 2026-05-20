@@ -342,16 +342,16 @@
       <div class="info-box">
         <strong>PROBLEM</strong><br />
         1. Compute all the terms of the Tribonacci numbers. This page is the
-        Tribonacci option (separate HTML instead of a menu).<br />
+        Tribonacci option.<br />
         <span class="note">Valid input is greater than 3.</span>
       </div>
 
       <div class="formula-card">
         <div class="formula-title">Recursive definition</div>
-        <pre class="formula-block">T(0) = 0
-T(1) = 0
-T(2) = 1
-T(n) = T(n - 1) + T(n - 2) + T(n - 3), for n >= 3</pre>
+        <pre class="formula-block">T<sub>0</sub> = 0
+T<sub>1</sub> = 0
+T<sub>2</sub> = 1
+T<sub>n</sub> = T<sub>n−1</sub> + T<sub>n−2</sub> + T<sub>n−3</sub>, for n ≥ 3</pre>
       </div>
       <div class="formula-card">
         <div class="formula-title">Sequence rule</div>
@@ -436,16 +436,16 @@ Each term is the sum of the previous three terms.</pre>
 
         const sequence = [0, 0, 1];
         const rows = [
-          { step: 0, formula: "T(0) = 0", value: 0 },
-          { step: 1, formula: "T(1) = 0", value: 0 },
-          { step: 2, formula: "T(2) = 1", value: 1 },
+          { step: 0, formula: "T<sub>0</sub> = 0", value: 0 },
+          { step: 1, formula: "T<sub>1</sub> = 0", value: 0 },
+          { step: 2, formula: "T<sub>2</sub> = 1", value: 1 },
         ];
         for (let i = 3; i < value; i += 1) {
           const next = sequence[i - 1] + sequence[i - 2] + sequence[i - 3];
           sequence.push(next);
           rows.push({
             step: i,
-            formula: `T(${i}) = T(${i - 1}) + T(${i - 2}) + T(${i - 3}) = ${sequence[i - 1]} + ${sequence[i - 2]} + ${sequence[i - 3]}`,
+            formula: `T<sub>${i}</sub> = T<sub>${i - 1}</sub> + T<sub>${i - 2}</sub> + T<sub>${i - 3}</sub> = ${sequence[i - 1]} + ${sequence[i - 2]} + ${sequence[i - 3]}`,
             value: next,
           });
         }
